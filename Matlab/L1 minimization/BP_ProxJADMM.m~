@@ -1,16 +1,11 @@
-%---------------------------------------------------
-% Solve basis pursuit with Jacobi ADMM
-%
+% Solve basis pursuit problem
 %   Minimize ||x||_1, subject to Ax = b,
-%
 % where A and x are divided into N blocks.
 %---------------------------------------------------
 % Jacobi ADMM with prox-linear terms
-% Reference: W. Deng, M.-J. Lai, Z. Peng, and W. Yin, 
-% Parallel Multi-Block ADMM with o(1/k) Convergence, 
-% UCLA CAM 13-64, 2013.
+% Reference: W. Deng, M.-J. Lai, Z. Peng, and W. Yin, Parallel Multi-Block ADMM with
+% o(1/k) Convergence, UCLA CAM 13-64, 2013.
 %---------------------------------------------------
-
 function [x,lambda,Out] = BP_ProxJADMM(A,b,idx,opts)
 % Get parameters
 rho = opts.rho;     % penalty parameter
@@ -31,6 +26,12 @@ res = -b;            % residual A*x-b
 xp = [];             % previous x
 res_p = [];          % previous residual
 
+
+% if opts.record
+%     Out.x = zeros(n,maxit);
+%     Out.y = zeros(n,maxit);
+%     Out.lambda = zeros(n,maxit);
+% end
 
 if isfield(opts,'xTrue')
     x0 = opts.xTrue; % ground truth

@@ -56,15 +56,15 @@ for j = 1:nrun
     fprintf('Prox-JADMM: iter = %4i, relative error = %e\n', Out0.iter,err)
     Err_ProxJADMM(:,j) = Out0.relerr;
     
-    %% YALL1
-    opts1.tol = tol;
-    opts1.maxit = maxit;
-    opts1.print = 2;
-    opts1.xs = xs;
-    [x,Out1] = yall1(A, b, opts1);
-    err = norm(x-xs)/norm(xs);
-    fprintf('YALL1: iter = %4i, relative error = %e\n', Out1.iter,err)
-    Err_Yall1(:,j) = Out1.relerr;
+%     %% YALL1
+%     opts1.tol = tol;
+%     opts1.maxit = maxit;
+%     opts1.print = 2;
+%     opts1.xs = xs;
+%     [x,Out1] = yall1(A, b, opts1);
+%     err = norm(x-xs)/norm(xs);
+%     fprintf('YALL1: iter = %4i, relative error = %e\n', Out1.iter,err)
+%     Err_Yall1(:,j) = Out1.relerr;
 
     %% Variable Splitting ADMM
     opts2.rho = 10/norm(b,1);
@@ -94,10 +94,10 @@ for j = 1:nrun
     %% Plot error curves
     figure(1);
     semilogy(1:maxit, Out0.relerr, 'b-');hold on
-    semilogy(1:maxit, Out1.relerr, 'r--');
+    % semilogy(1:maxit, Out1.relerr, 'r--');
     semilogy(1:maxit, Out2.relerr, 'k-');
     semilogy(1:maxit, Out3.relerr, 'm-.');
-    legend('Prox-JADMM','YALL1','VSADMM','Corr-JADMM')
+    legend('Prox-JADMM','VSADMM','Corr-JADMM')
     hold off
 end
 
